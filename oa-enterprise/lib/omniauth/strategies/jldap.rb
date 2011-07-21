@@ -50,16 +50,17 @@ module OmniAuth
           end          
         end
         
-        if result
-          @user_info = self.class.map_user(@@config, result)
-          @user_info['uid'] = result[@uid.to_s].try(:first) || result['dn'].try(:first) || result['distinguishedName'].try(:first) || 
-            @ldap_user_info = result
-        else
-          @user_info = nil
-          @ldap_user_info = nil
-        end
+        @user_info = nil
+        @ldap_user_info = nil
 
-        result
+        if result
+          conn.bind(result.get_dn, password) do
+            @user_info = self.class.map_user(@@config, result)
+            @user_info['uid'] = result[@uid.to_s].try(:first) || result['dn'].try(:first) || result['distinguishedName'].try(:first)
+            @ldap_user_info = result
+          end
+        end
+        @ldap_user_info
       end
       
       protected
