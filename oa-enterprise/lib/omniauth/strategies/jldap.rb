@@ -1,7 +1,6 @@
 require 'omniauth/enterprise'
 require 'ldap'
 
-
 module OmniAuth
   module Strategies
     class JLDAP < LDAP
@@ -53,16 +52,16 @@ module OmniAuth
         
         if result
           @user_info = self.class.map_user(@@config, result)
-          @user_info['uid'] = result['dn'].try(:first) || result['distinguishedName'].try(:first) || result[@uid.to_s].try(:first)
-          @ldap_user_info = result
+          @user_info['uid'] = result[@uid.to_s].try(:first) || result['dn'].try(:first) || result['distinguishedName'].try(:first) || 
+            @ldap_user_info = result
         else
           @user_info = nil
           @ldap_user_info = nil
         end
 
         result
-       end
-       
+      end
+      
       protected
       
 

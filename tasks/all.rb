@@ -34,7 +34,7 @@ PROJECTS.each do |project|
     task :build => :clean do
       cd dir
       sh "gem build #{gemspec}"
-      mkdir_p package_dir unless Dir.exists?(package_dir)
+      mkdir_p package_dir #unless Dir.exists?(package_dir)
       mv gem, "#{package_dir}/#{gem}"
     end
 
@@ -44,6 +44,10 @@ PROJECTS.each do |project|
 
     task :push => :build do
       sh "gem push #{package_dir}/#{gem}"
+    end
+
+    task :inabox => :build do
+      sh "gem inabox #{package_dir}/#{gem}"
     end
 
     task :version do
@@ -89,6 +93,7 @@ namespace :all do
   task :build => PROJECTS.map{|project| "#{project}:build"}
   task :install => PROJECTS.map{|project| "#{project}:install"}
   task :push => PROJECTS.map{|project| "#{project}:push"}
+  task :inabox => PROJECTS.map{|project| "#{project}:inabox"}
   task "version" => PROJECTS.map{|project| "#{project}:version"}
   task "version:write" => PROJECTS.map{|project| "#{project}:version:write"} + [:version]
   task "version:bump:major" => PROJECTS.map{|project| "#{project}:version:bump:major"} + [:version]
