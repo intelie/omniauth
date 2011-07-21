@@ -10,13 +10,6 @@ Gem::Specification.new do |gem|
   gem.email = ['michael@intridea.com', 'sferik@gmail.com']
   gem.executables = []
   gem.files = %w{
-  .autotest
-.document
-.gemtest
-.gitignore
-.rspec
-.travis.yml
-.yardopts
 Gemfile
 LICENSE.md
 README.md
@@ -71,6 +64,7 @@ oa-enterprise/lib/omniauth/enterprise.rb
 oa-enterprise/lib/omniauth/strategies/cas.rb
 oa-enterprise/lib/omniauth/strategies/cas/configuration.rb
 oa-enterprise/lib/omniauth/strategies/cas/service_ticket_validator.rb
+oa-enterprise/lib/omniauth/strategies/jldap.rb
 oa-enterprise/lib/omniauth/strategies/ldap.rb
 oa-enterprise/lib/omniauth/strategies/ldap/adaptor.rb
 oa-enterprise/lib/omniauth/version.rb
